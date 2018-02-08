@@ -2,10 +2,16 @@ package com.gutongxue.wxapp.util;
 
 
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.gutongxue.wxapp.domain.ImageDO;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedInputStream;
+import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
+import java.net.InetAddress;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
@@ -18,10 +24,26 @@ import java.time.format.DateTimeFormatter;
 public class GRQUtil {
 
     public static void main(String[] args) {
-        printApiController("/sxr",0);
+//        printApiController("/sxr",0);
 //        String sql="insert `jhyt`.`jh_base_article_info`(`gmt_create`,`gmt_modified`,`title`,`author`,`editor`,`publish_time`,`big_pic_flag`,`pic1`,`pic2`,`pic3`,`description`,`type`,`file_id`,`link_id`,`column_id`,`status_flag`,`pending_flag`) values('2017-06-29 10:04:34','2017-07-06 10:04:36','1','1','1','2017-07-06 10:04:41',1,'1','1','1','1',1,1,1,1,1,1);";
 //        System.out.println(replaceAliyunAutoCreateSQLToMySQL(sql));
+        getResultsStr(new ImageDO().getClass());
+    }
 
+    /**
+     * 1.用于获取结果集的映射关系
+     */
+    public static String getResultsStr(Class origin) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("@Results({\n");
+        for (Field field : origin.getDeclaredFields()) {
+            String property = field.getName();
+            //映射关系：对象属性(驼峰)->数据库字段(下划线)
+            String column = new PropertyNamingStrategy.SnakeCaseStrategy().translate(field.getName()).toUpperCase();
+            stringBuilder.append(String.format("@Result(property = \"%s\", column = \"%s\"),\n", property, column));
+        }
+        stringBuilder.append("})");
+        return stringBuilder.toString();
     }
 
     private static void printApiController(String mapping,int type){
@@ -213,5 +235,35 @@ public class GRQUtil {
         result+=")";
         result=" String sql = \""+result+"\";";
         return result;
+    }
+
+    public static String getIpAddr(HttpServletRequest request){
+        String ipAddress = request.getHeader("x-forwarded-for");
+        if(ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+            ipAddress = request.getHeader("Proxy-Client-IP");
+        }
+        if(ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+            ipAddress = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if(ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+            ipAddress = request.getRemoteAddr();
+            if(ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1")){
+                //根据网卡取本机配置的IP
+                InetAddress inet=null;
+                try {
+                    inet = InetAddress.getLocalHost();
+                } catch (UnknownHostException e) {
+                    e.printStackTrace();
+                }
+                ipAddress= inet.getHostAddress();
+            }
+        }
+        //对于通过多个代理的情况，第一个IP为客户端真实IP,多个IP按照','分割
+        if(ipAddress!=null && ipAddress.length()>15){ //"***.***.***.***".length() = 15
+            if(ipAddress.indexOf(",")>0){
+                ipAddress = ipAddress.substring(0,ipAddress.indexOf(","));
+            }
+        }
+        return ipAddress;
     }
 }
