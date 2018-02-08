@@ -2,6 +2,7 @@ package com.gutongxue.wxapp.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.gutongxue.wxapp.domain.ImageDO;
+import com.gutongxue.wxapp.domain.ImageVO;
 import com.gutongxue.wxapp.domain.JokeDO;
 import com.gutongxue.wxapp.domain.Result;
 import com.gutongxue.wxapp.service.ImageService;
@@ -30,7 +31,7 @@ public class ImageController {
         try {
             int page= GRQUtil.getRequestInteger(request,"page",0);
             int size=GRQUtil.getRequestInteger(request,"size",5);
-            List<ImageDO> list=imageService.listImage(page,size);
+            List<ImageVO> list=imageService.listImage(page,size);
             int count=imageService.countImage();
 
             JSONObject resultJO=new JSONObject();

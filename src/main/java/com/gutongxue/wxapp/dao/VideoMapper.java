@@ -2,6 +2,7 @@ package com.gutongxue.wxapp.dao;
 
 import com.gutongxue.wxapp.domain.JokeDO;
 import com.gutongxue.wxapp.domain.VideoDO;
+import com.gutongxue.wxapp.domain.VideoVO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -21,11 +22,11 @@ public interface VideoMapper {
             @Result(property = "cover" , column = "video_cover"),
             @Result(property = "description" , column = "video_description"),
             @Result(property = "source" , column = "video_source"),
-            @Result(property = "status" , column = "video_status")
-
+            @Result(property = "status" , column = "video_status"),
+            @Result(property = "user" , column = "user_openid" , one = @One(select = "com.gutongxue.wxapp.dao.UserMapper.getUser"))
     })
     @Select("select * from gtx_base_video where video_status = 1 order by gmt_modified desc")
-    List<VideoDO> listVideo();
+    List<VideoVO> listVideo();
 
     @Select("select count(*) from gtx_base_video where video_status = 1")
     int countVideo();

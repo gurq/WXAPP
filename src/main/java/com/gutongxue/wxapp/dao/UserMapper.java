@@ -32,7 +32,7 @@ public interface UserMapper {
 
     @Results(id = "userDO" , value = {
             @Result(property = "openid" , column = "openid"),
-            @Result(property = "createTime" , column = "gmt_creata"),
+            @Result(property = "createTime" , column = "gmt_create"),
             @Result(property = "loginTime" , column = "gmt_login"),
             @Result(property = "nickname" , column = "nickname"),
             @Result(property = "avatar" , column = "avatar"),

@@ -2,6 +2,7 @@ package com.gutongxue.wxapp.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.gutongxue.wxapp.domain.JokeDO;
+import com.gutongxue.wxapp.domain.JokeVO;
 import com.gutongxue.wxapp.domain.Result;
 import com.gutongxue.wxapp.service.JokeService;
 import com.gutongxue.wxapp.util.GRQUtil;
@@ -28,7 +29,7 @@ public class JokeController {
         try {
             int page= GRQUtil.getRequestInteger(request,"page",0);
             int size=GRQUtil.getRequestInteger(request,"size",5);
-            List<JokeDO> list=jokeService.listJoke(page,size);
+            List<JokeVO> list=jokeService.listJoke(page,size);
             int count=jokeService.countJoke();
 
             JSONObject resultJO=new JSONObject();

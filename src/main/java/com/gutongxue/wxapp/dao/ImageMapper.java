@@ -1,6 +1,7 @@
 package com.gutongxue.wxapp.dao;
 
 import com.gutongxue.wxapp.domain.ImageDO;
+import com.gutongxue.wxapp.domain.ImageVO;
 import com.gutongxue.wxapp.domain.JokeDO;
 import org.apache.ibatis.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +31,11 @@ public interface ImageMapper {
             @Result(property = "url" , column = "image_url"),
             @Result(property = "description" , column = "image_description"),
             @Result(property = "source" , column = "image_source"),
-            @Result(property = "status" , column = "image_status")
-
+            @Result(property = "status" , column = "image_status"),
+            @Result(property = "user" , column = "user_openid" , one = @One(select = "com.gutongxue.wxapp.dao.UserMapper.getUser"))
     })
     @Select("select * from gtx_base_image where image_status = 1 order by gmt_modified desc")
-    List<ImageDO> listImage();
+    List<ImageVO> listImage();
 
     @Select("select count(*) from gtx_base_image where image_status = 1 ")
     int countImage();

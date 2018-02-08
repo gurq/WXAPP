@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.gutongxue.wxapp.dao.JokeMapper;
 import com.gutongxue.wxapp.domain.JokeDO;
+import com.gutongxue.wxapp.domain.JokeVO;
 import com.gutongxue.wxapp.service.JokeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,9 @@ public class JokeServiceImpl implements JokeService {
     JokeMapper jokeMapper;
 
     @Override
-    public List<JokeDO> listJoke(int pageNum, int sizeNum){
+    public List<JokeVO> listJoke(int pageNum, int sizeNum){
         //分页插件: 查询第1页，每页10行
-        Page<JokeDO> page = PageHelper.startPage(pageNum, sizeNum);
+        Page<JokeVO> page = PageHelper.startPage(pageNum, sizeNum);
         jokeMapper.listJoke();
         //数据表的总行数
         page.getTotal();

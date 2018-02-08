@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.gutongxue.wxapp.domain.ImageDO;
 import com.gutongxue.wxapp.domain.Result;
 import com.gutongxue.wxapp.domain.VideoDO;
+import com.gutongxue.wxapp.domain.VideoVO;
 import com.gutongxue.wxapp.service.VideoService;
 import com.gutongxue.wxapp.util.GRQUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class VideoController {
         try {
             int page= GRQUtil.getRequestInteger(request,"page",0);
             int size=GRQUtil.getRequestInteger(request,"size",5);
-            List<VideoDO> list=videoService.listVideo(page,size);
+            List<VideoVO> list=videoService.listVideo(page,size);
             int count=videoService.countVideo();
 
             JSONObject resultJO=new JSONObject();

@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.gutongxue.wxapp.dao.VideoMapper;
 import com.gutongxue.wxapp.domain.ImageDO;
 import com.gutongxue.wxapp.domain.VideoDO;
+import com.gutongxue.wxapp.domain.VideoVO;
 import com.gutongxue.wxapp.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,9 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public List<VideoDO> listVideo(int pageNum, int sizeNum) {
+    public List<VideoVO> listVideo(int pageNum, int sizeNum) {
         //分页插件: 查询第1页，每页10行
-        Page<VideoDO> page = PageHelper.startPage(pageNum, sizeNum);
+        Page<VideoVO> page = PageHelper.startPage(pageNum, sizeNum);
         videoMapper.listVideo();
         //数据表的总行数
         page.getTotal();

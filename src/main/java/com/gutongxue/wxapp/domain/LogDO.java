@@ -1,5 +1,7 @@
 package com.gutongxue.wxapp.domain;
 
+import com.gutongxue.wxapp.util.GRQUtil;
+
 public class LogDO {
     private int id;
     private String time;
@@ -18,6 +20,9 @@ public class LogDO {
     }
 
     public void setTime(String time) {
+        if (!GRQUtil.checkNull(time)){
+            time=time.split("\\.")[0];
+        }
         this.time = time;
     }
 

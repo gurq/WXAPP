@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.gutongxue.wxapp.dao.ImageMapper;
 import com.gutongxue.wxapp.domain.ImageDO;
+import com.gutongxue.wxapp.domain.ImageVO;
 import com.gutongxue.wxapp.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,9 +37,9 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public List<ImageDO> listImage(int pageNum, int sizeNum) {
+    public List<ImageVO> listImage(int pageNum, int sizeNum) {
         //分页插件: 查询第1页，每页10行
-        Page<ImageDO> page = PageHelper.startPage(pageNum, sizeNum);
+        Page<ImageVO> page = PageHelper.startPage(pageNum, sizeNum);
         imageMapper.listImage();
         //数据表的总行数
         page.getTotal();

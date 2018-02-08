@@ -1,6 +1,7 @@
 package com.gutongxue.wxapp.dao;
 
 import com.gutongxue.wxapp.domain.JokeDO;
+import com.gutongxue.wxapp.domain.JokeVO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -9,13 +10,15 @@ import java.util.List;
 public interface JokeMapper {
     @Results({
             @Result(property = "id" , column = "id"),
+            @Result(property = "createTime" , column = "gmt_create"),
+            @Result(property = "modifiedTime" , column = "gmt_modified"),
             @Result(property = "content" , column = "joke_content"),
             @Result(property = "source" , column = "joke_source"),
-            @Result(property = "createTime" , column = "gmt_create"),
-            @Result(property = "modifiedTime" , column = "gmt_modified")
+            @Result(property = "status" , column = "joke_status"),
+            @Result(property = "user" , column = "user_openid" , one = @One(select = "com.gutongxue.wxapp.dao.UserMapper.getUser"))
     })
     @Select("select * from gtx_base_joke where joke_status = 1 order by gmt_modified desc")
-    List<JokeDO> listJoke();
+    List<JokeVO> listJoke();
 
     @Select("select count(*) from gtx_base_joke where joke_status = 1")
     int countJoke();

@@ -1,5 +1,7 @@
 package com.gutongxue.wxapp.domain;
 
+import com.gutongxue.wxapp.util.GRQUtil;
+
 public class VideoDO {
     private int id;
     private String openid;
@@ -32,6 +34,9 @@ public class VideoDO {
     }
 
     public void setCreateTime(String createTime) {
+        if (!GRQUtil.checkNull(createTime)){
+            createTime=createTime.split("\\.")[0];
+        }
         this.createTime = createTime;
     }
 
@@ -40,6 +45,9 @@ public class VideoDO {
     }
 
     public void setModifiedTime(String modifiedTime) {
+        if (!GRQUtil.checkNull(modifiedTime)){
+            modifiedTime=modifiedTime.split("\\.")[0];
+        }
         this.modifiedTime = modifiedTime;
     }
 

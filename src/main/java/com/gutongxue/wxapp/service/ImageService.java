@@ -1,6 +1,7 @@
 package com.gutongxue.wxapp.service;
 
 import com.gutongxue.wxapp.domain.ImageDO;
+import com.gutongxue.wxapp.domain.ImageVO;
 
 import java.util.List;
 
@@ -9,6 +10,6 @@ public interface ImageService {
     void insertImage(ImageDO imageDO);
     void deleteImage(int id);
     void updateImageStatus(int id,int status,String now);
-    List<ImageDO> listImage(int pageNum,int sizeNum);
+    List<ImageVO> listImage(int pageNum, int sizeNum);
     int countImage();
 }

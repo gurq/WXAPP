@@ -1,5 +1,7 @@
 package com.gutongxue.wxapp.domain;
 
+import com.gutongxue.wxapp.util.GRQUtil;
+
 /**
  * @Author Created by ShadowSaint on 2018/2/8
  */
@@ -28,6 +30,9 @@ public class UserDO {
     }
 
     public void setCreateTime(String createTime) {
+        if (!GRQUtil.checkNull(createTime)){
+            createTime=createTime.split("\\.")[0];
+        }
         this.createTime = createTime;
     }
 
@@ -36,6 +41,9 @@ public class UserDO {
     }
 
     public void setLoginTime(String loginTime) {
+        if (!GRQUtil.checkNull(loginTime)){
+            loginTime=loginTime.split("\\.")[0];
+        }
         this.loginTime = loginTime;
     }
 

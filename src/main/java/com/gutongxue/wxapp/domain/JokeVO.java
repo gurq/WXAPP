@@ -2,9 +2,12 @@ package com.gutongxue.wxapp.domain;
 
 import com.gutongxue.wxapp.util.GRQUtil;
 
-public class JokeDO {
+/**
+ * @Author Created by ShadowSaint on 2018/2/8
+ */
+public class JokeVO {
     private int id;
-    private String openid;
+    private UserDO user;
     private String createTime;
     private String modifiedTime;
     private String content;
@@ -19,28 +22,12 @@ public class JokeDO {
         this.id = id;
     }
 
-    public String getContent() {
-        return content;
+    public UserDO getUser() {
+        return user;
     }
 
-    public void setContent(String content) {
-        if (!GRQUtil.checkNull(content)){
-            content=content.replace("<p>","")
-                    .replace("</p>","\n\r")
-                    .replace("</br>","\n\r")
-                    .replace("<br>","\n\r")
-                    .replace("</ br>","\n\r")
-                    .replace("&nbsp;"," ");
-        }
-        this.content = content;
-    }
-
-    public int getSource() {
-        return source;
-    }
-
-    public void setSource(int source) {
-        this.source = source;
+    public void setUser(UserDO user) {
+        this.user = user;
     }
 
     public String getCreateTime() {
@@ -65,12 +52,20 @@ public class JokeDO {
         this.modifiedTime = modifiedTime;
     }
 
-    public String getOpenid() {
-        return openid;
+    public String getContent() {
+        return content;
     }
 
-    public void setOpenid(String openid) {
-        this.openid = openid;
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public int getSource() {
+        return source;
+    }
+
+    public void setSource(int source) {
+        this.source = source;
     }
 
     public int getStatus() {
@@ -80,4 +75,5 @@ public class JokeDO {
     public void setStatus(int status) {
         this.status = status;
     }
+
 }

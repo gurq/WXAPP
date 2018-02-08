@@ -50,7 +50,7 @@ public class UserController {
         String avatar=request.getParameter("avatar");
         String ip= GRQUtil.getIpAddr(request);
 
-        String url="http://ip.taobao.com/service/getIpInfo.php?ip=";
+        String url="http://ip.taobao.com/service/getIpInfo.php?ip="+ip;
         String html= HtmlUtil.sendGetGzip(url,"utf-8");
 
         JSONObject ipJO= JSON.parseObject(html);
