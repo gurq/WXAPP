@@ -10,4 +10,5 @@ public interface ImageService {
     void deleteImage(int id);
     void updateImageStatus(int id,int status,String now);
     List<ImageDO> listImage(int pageNum,int sizeNum);
+    int countImage();
 }

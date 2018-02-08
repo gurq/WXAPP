@@ -29,52 +29,12 @@ public class UserController {
         Result result=new Result();
         try {
             UserDO userDO=getUserDO(request);
-
-            userService.insertUser(userDO);
-
-            result.setData(userDO);
-        }catch (Exception e){
-            result.setMessage(e.getMessage());
-            result.setStatus(false);
-        }
-        return result;
-    }
-
-    @RequestMapping(value = "/user" , method = RequestMethod.DELETE)
-    public Result deleteUser(HttpServletRequest request){
-        Result result=new Result();
-        try {
-            String openid=request.getParameter("openid");
-            userService.deleteUser(openid);
-        }catch (Exception e){
-            result.setMessage(e.getMessage());
-            result.setStatus(false);
-        }
-        return result;
-    }
-
-    @RequestMapping(value = "/user" , method = RequestMethod.PUT)
-    public Result updateUser(HttpServletRequest request){
-        Result result=new Result();
-        try {
-            UserDO userDO=getUserDO(request);
-
-            userService.updateUser(userDO);
-
-            result.setData(userDO);
-        }catch (Exception e){
-            result.setMessage(e.getMessage());
-            result.setStatus(false);
-        }
-        return result;
-    }
-
-    @RequestMapping(value = "/user" , method = RequestMethod.GET)
-    public Result getUser(HttpServletRequest request){
-        Result result=new Result();
-        try {
-            String openid=request.getParameter("openid");
-            UserDO userDO=userService.getUser(openid);
+            int count=userService.countUserByOpenid(userDO.getOpenid());
+            if (count==0){
+                userService.insertUser(userDO);
+            }else {
+                userService.updateUser(userDO);
+            }
             result.setData(userDO);
         }catch (Exception e){
             result.setMessage(e.getMessage());
@@ -114,5 +74,33 @@ public class UserController {
 
         return userDO;
     }
+
+    @RequestMapping(value = "/user" , method = RequestMethod.DELETE)
+    public Result deleteUser(HttpServletRequest request){
+        Result result=new Result();
+        try {
+            String openid=request.getParameter("openid");
+            userService.deleteUser(openid);
+        }catch (Exception e){
+            result.setMessage(e.getMessage());
+            result.setStatus(false);
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "/user" , method = RequestMethod.GET)
+    public Result getUser(HttpServletRequest request){
+        Result result=new Result();
+        try {
+            String openid=request.getParameter("openid");
+            UserDO userDO=userService.getUser(openid);
+            result.setData(userDO);
+        }catch (Exception e){
+            result.setMessage(e.getMessage());
+            result.setStatus(false);
+        }
+        return result;
+    }
+
 
 }

@@ -14,8 +14,11 @@ public interface JokeMapper {
             @Result(property = "createTime" , column = "gmt_create"),
             @Result(property = "modifiedTime" , column = "gmt_modified")
     })
-    @Select("select * from gtx_base_joke order by gmt_modified desc")
+    @Select("select * from gtx_base_joke where joke_status = 1 order by gmt_modified desc")
     List<JokeDO> listJoke();
+
+    @Select("select count(*) from gtx_base_joke where joke_status = 1")
+    int countJoke();
 
     @Select("select count(*) from gtx_base_joke where joke_content = #{0}")
     int countJokeByDescription(String content);

@@ -33,8 +33,10 @@ public interface ImageMapper {
             @Result(property = "status" , column = "image_status")
 
     })
-    @Select("select * from gtx_base_image order by gmt_modified desc")
+    @Select("select * from gtx_base_image where image_status = 1 order by gmt_modified desc")
     List<ImageDO> listImage();
 
+    @Select("select count(*) from gtx_base_image where image_status = 1 ")
+    int countImage();
 
 }

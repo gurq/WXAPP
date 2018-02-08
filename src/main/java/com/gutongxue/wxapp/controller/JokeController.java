@@ -1,5 +1,6 @@
 package com.gutongxue.wxapp.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.gutongxue.wxapp.domain.JokeDO;
 import com.gutongxue.wxapp.domain.Result;
 import com.gutongxue.wxapp.service.JokeService;
@@ -22,11 +23,23 @@ public class JokeController {
     JokeService jokeService;
 
     @RequestMapping(value = "/joke/list",method = RequestMethod.GET)
-    public List<JokeDO> getJokeList(HttpServletRequest request){
-        int page= GRQUtil.getRequestInteger(request,"page",0);
-        int size=GRQUtil.getRequestInteger(request,"size",5);
-        List<JokeDO> list=jokeService.listJoke(page,size);
-        return list;
+    public Result getJokeList(HttpServletRequest request){
+        Result result=new Result();
+        try {
+            int page= GRQUtil.getRequestInteger(request,"page",0);
+            int size=GRQUtil.getRequestInteger(request,"size",5);
+            List<JokeDO> list=jokeService.listJoke(page,size);
+            int count=jokeService.countJoke();
+
+            JSONObject resultJO=new JSONObject();
+            resultJO.put("list",list);
+            resultJO.put("count",count);
+            result.setData(resultJO);
+        }catch (Exception e){
+            result.setMessage(e.getMessage());
+            result.setStatus(false);
+        }
+        return result;
     }
 
     @RequestMapping(value = "/joke",method = RequestMethod.POST)

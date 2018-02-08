@@ -4,7 +4,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.gutongxue.wxapp.dao.ImageMapper;
 import com.gutongxue.wxapp.domain.ImageDO;
-import com.gutongxue.wxapp.domain.JokeDO;
 import com.gutongxue.wxapp.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,5 +47,10 @@ public class ImageServiceImpl implements ImageService {
         //第一个User对象，参考list，序号0是第一个元素，依此类推
         page.get(0);
         return page;
+    }
+
+    @Override
+    public int countImage() {
+        return imageMapper.countImage();
     }
 }

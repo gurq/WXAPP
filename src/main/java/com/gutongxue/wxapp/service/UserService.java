@@ -15,4 +15,5 @@ public interface UserService {
     List<UserDO> listUser(int pageNum,int sizeNum);
     int countUser();
     UserDO getUser(String openid);
+    int countUserByOpenid(String openid);
 }

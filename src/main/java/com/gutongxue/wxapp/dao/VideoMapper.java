@@ -24,6 +24,9 @@ public interface VideoMapper {
             @Result(property = "status" , column = "video_status")
 
     })
-    @Select("select * from gtx_base_video order by gmt_modified desc")
+    @Select("select * from gtx_base_video where video_status = 1 order by gmt_modified desc")
     List<VideoDO> listVideo();
+
+    @Select("select count(*) from gtx_base_video where video_status = 1")
+    int countVideo();
 }

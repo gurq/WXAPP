@@ -30,6 +30,11 @@ public class JokeServiceImpl implements JokeService {
     }
 
     @Override
+    public int countJoke() {
+        return jokeMapper.countJoke();
+    }
+
+    @Override
     public int countJokeByContent(String content) {
         return jokeMapper.countJokeByDescription(content);
     }

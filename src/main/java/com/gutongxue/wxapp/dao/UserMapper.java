@@ -48,9 +48,12 @@ public interface UserMapper {
     List<UserDO> listUser();
 
     @Select("select count(*) from gtx_user_info")
-    int countUserList();
+    int countUser();
 
     @Select("select * from gtx_user_info where openid = #{0}")
     UserDO getUser(String openid);
+
+    @Select("select count(*) from gtx_user_info where openid = #{0}")
+    int countUserByOpenid(String openid);
 
 }

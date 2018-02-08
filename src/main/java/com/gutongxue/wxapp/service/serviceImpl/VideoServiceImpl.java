@@ -34,4 +34,9 @@ public class VideoServiceImpl implements VideoService {
         page.get(0);
         return page;
     }
+
+    @Override
+    public int countVideo() {
+        return videoMapper.countVideo();
+    }
 }

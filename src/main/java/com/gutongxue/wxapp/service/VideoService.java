@@ -8,4 +8,5 @@ import java.util.List;
 public interface VideoService {
     void insertVideo(VideoDO videoDO);
     List<VideoDO> listVideo(int pageNum, int sizeNum);
+    int countVideo();
 }

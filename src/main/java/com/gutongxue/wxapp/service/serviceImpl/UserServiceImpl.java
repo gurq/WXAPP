@@ -3,7 +3,6 @@ package com.gutongxue.wxapp.service.serviceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.gutongxue.wxapp.dao.UserMapper;
-import com.gutongxue.wxapp.domain.ImageDO;
 import com.gutongxue.wxapp.domain.UserDO;
 import com.gutongxue.wxapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,11 +49,16 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public int countUser() {
-        return userMapper.countUserList();
+        return userMapper.countUser();
     }
 
     @Override
     public UserDO getUser(String openid) {
         return userMapper.getUser(openid);
+    }
+
+    @Override
+    public int countUserByOpenid(String openid) {
+        return userMapper.countUserByOpenid(openid);
     }
 }
