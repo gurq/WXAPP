@@ -48,16 +48,9 @@ public class DuoWanCrawler {
         }else {
             listUrl="http://tu.duowan.com/m/bxgif";
         }
-        String listHtml= HtmlUtil.sendGetGzip(listUrl,"utf-8");
-        if (GRQUtil.checkNull(listHtml)){
-            listHtml= HtmlUtil.sendGet(listUrl,"utf-8");
-        }
-        if (GRQUtil.checkNull(listHtml)){
-            return 0;
-        }
 
         try {
-            Document listDocument= Jsoup.parse(listHtml);
+            Document listDocument= Jsoup.connect(listUrl).ignoreContentType(true).ignoreHttpErrors(true).timeout(3000).get();
             Elements listElements=listDocument.select("em");
             String itemTitle="";
             String itemUrl="";

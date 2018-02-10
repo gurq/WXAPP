@@ -29,7 +29,7 @@ public class ImageController {
     public Result getImageList(HttpServletRequest request){
         Result result=new Result();
         try {
-            int page= GRQUtil.getRequestInteger(request,"page",0);
+            int page= GRQUtil.getRequestInteger(request,"page",1);
             int size=GRQUtil.getRequestInteger(request,"size",5);
             List<ImageVO> list=imageService.listImage(page,size);
             int count=imageService.countImage();

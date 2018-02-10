@@ -11,8 +11,8 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-    @Insert("insert into `gtx_user_info` (`openid`,`gmt_create`,`gmt_login`,`nickname`,`avatar`,`ip`,`country`,`region`,`city`,`isp`)\n" +
-            " values(#{user.openid},#{user.createTime},#{user.loginTime},#{user.nickname},#{user.avatar},#{user.ip},#{user.country},#{user.region},#{user.city},#{user.isp})")
+    @Insert("insert into `gtx_user_info` (`openid`,`gmt_create`,`gmt_login`,`nickname`,`avatar`,`gender`,`ip`,`country`,`region`,`city`,`isp`)\n" +
+            " values(#{user.openid},#{user.createTime},#{user.loginTime},#{user.nickname},#{user.avatar},#{user.gender},#{user.ip},#{user.country},#{user.region},#{user.city},#{user.isp})")
     void insertUser(@Param("user")UserDO userDO);
 
     @Delete("delete from gtx_user_info where openid = #{0}")
@@ -22,6 +22,7 @@ public interface UserMapper {
             "    `gmt_login`=#{user.loginTime},\n" +
             "    `nickname`=#{user.nickname},\n" +
             "    `avatar`=#{user.avatar},\n" +
+            "    `gender`=#{user.gender},\n" +
             "    `ip`=#{user.ip},\n" +
             "    `country`=#{user.country},\n" +
             "    `region`=#{user.region},\n" +
@@ -36,6 +37,7 @@ public interface UserMapper {
             @Result(property = "loginTime" , column = "gmt_login"),
             @Result(property = "nickname" , column = "nickname"),
             @Result(property = "avatar" , column = "avatar"),
+            @Result(property = "gender" , column = "gender"),
             @Result(property = "ip" , column = "ip"),
             @Result(property = "country" , column = "country"),
             @Result(property = "region" , column = "region"),

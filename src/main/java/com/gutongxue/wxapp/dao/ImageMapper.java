@@ -25,7 +25,6 @@ public interface ImageMapper {
 
     @Results({
             @Result(property = "id" , column = "id"),
-            @Result(property = "openid" , column = "user_openid"),
             @Result(property = "createTime" , column = "gmt_create"),
             @Result(property = "modifiedTime" , column = "gmt_modified"),
             @Result(property = "url" , column = "image_url"),

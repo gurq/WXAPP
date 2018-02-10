@@ -10,6 +10,7 @@ public class UserDO {
     private String createTime;
     private String loginTime;
     private String nickname;
+    private Integer gender;
     private String avatar;
     private String ip;
     private String country;
@@ -101,5 +102,13 @@ public class UserDO {
 
     public void setIsp(String isp) {
         this.isp = isp;
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
     }
 }

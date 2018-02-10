@@ -48,6 +48,7 @@ public class UserController {
         String now= LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         String nickname=request.getParameter("nickname");
         String avatar=request.getParameter("avatar");
+        int gender=GRQUtil.getRequestInteger(request,"gender",1);
         String ip= GRQUtil.getIpAddr(request);
 
         String url="http://ip.taobao.com/service/getIpInfo.php?ip="+ip;
@@ -66,6 +67,7 @@ public class UserController {
         userDO.setLoginTime(now);
         userDO.setNickname(nickname);
         userDO.setAvatar(avatar);
+        userDO.setGender(gender);
         userDO.setIp(ip);
         userDO.setCountry(country);
         userDO.setRegion(region);

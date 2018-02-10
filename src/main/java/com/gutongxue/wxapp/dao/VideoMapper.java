@@ -15,7 +15,6 @@ public interface VideoMapper {
 
     @Results({
             @Result(property = "id" , column = "id"),
-            @Result(property = "openid" , column = "openid"),
             @Result(property = "createTime" , column = "gmt_create"),
             @Result(property = "modifiedTime" , column = "gmt_modified"),
             @Result(property = "url" , column = "video_url"),
