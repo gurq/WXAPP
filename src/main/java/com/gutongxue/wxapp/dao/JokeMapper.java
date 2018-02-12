@@ -1,6 +1,7 @@
 package com.gutongxue.wxapp.dao;
 
 import com.gutongxue.wxapp.domain.JokeDO;
+import com.gutongxue.wxapp.domain.QueryParam;
 import com.gutongxue.wxapp.domain.JokeVO;
 import org.apache.ibatis.annotations.*;
 
@@ -8,6 +9,8 @@ import java.util.List;
 
 @Mapper
 public interface JokeMapper {
+
+    @SelectProvider(type = JokeProvider.class , method = "queryByParam")
     @Results({
             @Result(property = "id" , column = "id"),
             @Result(property = "createTime" , column = "gmt_create"),
@@ -17,8 +20,7 @@ public interface JokeMapper {
             @Result(property = "status" , column = "joke_status"),
             @Result(property = "user" , column = "user_openid" , one = @One(select = "com.gutongxue.wxapp.dao.UserMapper.getUser"))
     })
-    @Select("select * from gtx_base_joke where joke_status = 1 order by gmt_modified desc")
-    List<JokeVO> listJoke();
+    List<JokeVO> listJoke(@Param("param")QueryParam queryParam);
 
     @Select("select count(*) from gtx_base_joke where joke_status = 1")
     int countJoke();

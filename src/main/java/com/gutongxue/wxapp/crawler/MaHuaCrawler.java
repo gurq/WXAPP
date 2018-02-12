@@ -4,6 +4,7 @@ import com.gutongxue.wxapp.domain.ImageDO;
 import com.gutongxue.wxapp.domain.JokeDO;
 import com.gutongxue.wxapp.service.ImageService;
 import com.gutongxue.wxapp.service.JokeService;
+import com.gutongxue.wxapp.util.GRQUtil;
 import com.gutongxue.wxapp.util.HtmlUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -39,7 +40,7 @@ public class MaHuaCrawler {
             String html=HtmlUtil.sendGetGzip(url,"utf-8");
             Document document=Jsoup.parse(html);
             String time=document.select("p[class=\"joke-uname\"] span").first().text().trim().split(" ")[0];
-            while (time!=null&&!time.equals("")&&(time.equals(today)||time.equals(yesterday))){
+            while (!GRQUtil.checkNull(time)&&((time.equals(today)||time.equals(yesterday)))){
                 Elements imgElements=document.select("div.joke-content img");
                 //如果是今天的话,跳过这一条
                 if (time.equals(today)){
@@ -61,11 +62,10 @@ public class MaHuaCrawler {
                     imageDO.setSource(1);
                     imageDO.setStatus(1);
                     int imageCount = imageService.countImageByDescription(imageDO.getDescription());
-                    if (imageCount>0){
-                        continue;
+                    if (imageCount==0){
+                        imageService.insertImage(imageDO);
+                        count++;
                     }
-                    imageService.insertImage(imageDO);
-                    count++;
                 }else {
                     String content=document.select("div.joke-content").html().trim();
                     JokeDO jokeDO = new JokeDO();
@@ -77,11 +77,10 @@ public class MaHuaCrawler {
                     jokeDO.setSource(1);
                     jokeDO.setStatus(1);
                     int contentCount=jokeService.countJokeByContent(content);
-                    if (contentCount > 0) {
-                        continue;
+                    if (contentCount == 0) {
+                        jokeService.insertJoke(jokeDO);
+                        count++;
                     }
-                    jokeService.insertJoke(jokeDO);
-                    count++;
                 }
                 String nextUrl=document.select("div.joke-content").first().attr("onclick").replace("javascript:location.href='","").replace("'","");
                 if (nextUrl.equals(url)){

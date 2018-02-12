@@ -69,11 +69,14 @@ public class NeiHanDuanZiCrawler {
                     videoDO.setDescription(itemJsonObject.getString("text"));
                     videoDO.setSource(1);
                     videoDO.setStatus(1);
-                    videoService.insertVideo(videoDO);
-                    count++;
+                    int countVideo=videoService.countVideoByDescription(videoDO.getDescription());
+                    if (countVideo==0){
+                        videoService.insertVideo(videoDO);
+                        count++;
+                    }
                 }
             }catch (Exception e){
-
+                e.printStackTrace();
             }
             page++;
         }

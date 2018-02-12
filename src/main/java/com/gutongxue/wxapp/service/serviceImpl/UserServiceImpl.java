@@ -39,11 +39,11 @@ public class UserServiceImpl implements UserService{
         Page<UserDO> page = PageHelper.startPage(pageNum, sizeNum);
         userMapper.listUser();
         //数据表的总行数
-        page.getTotal();
+//        page.getTotal();
         //分页查询结果的总行数
-        page.size();
+//        page.size();
         //第一个User对象，参考list，序号0是第一个元素，依此类推
-        page.get(0);
+//        page.get(0);
         return page;
     }
 

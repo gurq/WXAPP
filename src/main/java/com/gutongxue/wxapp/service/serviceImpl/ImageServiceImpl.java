@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.gutongxue.wxapp.dao.ImageMapper;
 import com.gutongxue.wxapp.domain.ImageDO;
 import com.gutongxue.wxapp.domain.ImageVO;
+import com.gutongxue.wxapp.domain.QueryParam;
 import com.gutongxue.wxapp.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,16 +38,16 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public List<ImageVO> listImage(int pageNum, int sizeNum) {
+    public List<ImageVO> listImage(QueryParam queryParam) {
         //分页插件: 查询第1页，每页10行
-        Page<ImageVO> page = PageHelper.startPage(pageNum, sizeNum);
-        imageMapper.listImage();
+        Page<ImageVO> page = PageHelper.startPage(queryParam.getPage(), queryParam.getSize());
+        imageMapper.listImage(queryParam);
         //数据表的总行数
-        page.getTotal();
+//        page.getTotal();
         //分页查询结果的总行数
-        page.size();
+//        page.size();
         //第一个User对象，参考list，序号0是第一个元素，依此类推
-        page.get(0);
+//        page.get(0);
         return page;
     }
 

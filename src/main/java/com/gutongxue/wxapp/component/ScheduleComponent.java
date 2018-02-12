@@ -40,19 +40,20 @@ public class ScheduleComponent {
             }
             //出于服务器性能瓶颈限制,目前暂时不打算做成异步的
             try {
-                //多玩每日囧图
-                int duoWanImageCount= duoWanCrawler.getDuoWanInfo(0);
+                //抓开心麻花
+                int mahuaCount= maHuaCrawler.getMaHuaInfo();
                 Thread.sleep(1000*60);
-                //多玩爆笑gif
-                int duoWanGifCount= duoWanCrawler.getDuoWanInfo(1);
+                //内涵段子
+                int neiHanDuanZiCount= neiHanDuanZiCrawler.getNeiHanDuanZiInfo();
                 Thread.sleep(1000*60);
                 //抓笑话集
                 int jokejiCount= jokeJiCrawler.getJokeJiInfo();
                 Thread.sleep(1000*60);
-                //抓开心麻花
-                int mahuaCount= maHuaCrawler.getMaHuaInfo();
+                //多玩爆笑gif
+                int duoWanGifCount= duoWanCrawler.getDuoWanInfo(1);
                 Thread.sleep(1000*60);
-                int neiHanDuanZiCount= neiHanDuanZiCrawler.getNeiHanDuanZiInfo();
+                //多玩每日囧图
+                int duoWanImageCount= duoWanCrawler.getDuoWanInfo(0);
                 //数据库记录
                 LogDO logDO=new LogDO();
                 logDO.setTime(GRQUtil.getTodayByFormat("yyyy-MM-dd HH:mm:ss"));

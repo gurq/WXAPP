@@ -2,12 +2,13 @@ package com.gutongxue.wxapp.service;
 
 
 import com.gutongxue.wxapp.domain.JokeDO;
+import com.gutongxue.wxapp.domain.QueryParam;
 import com.gutongxue.wxapp.domain.JokeVO;
 
 import java.util.List;
 
 public interface JokeService {
-    List<JokeVO> listJoke(int pageNum, int sizeNum);
+    List<JokeVO> listJoke(QueryParam queryParam);
     int countJoke();
     int countJokeByContent(String content);
     void insertJoke(JokeDO jokeDO);

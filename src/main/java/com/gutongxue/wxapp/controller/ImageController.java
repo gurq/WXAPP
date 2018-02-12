@@ -1,10 +1,7 @@
 package com.gutongxue.wxapp.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.gutongxue.wxapp.domain.ImageDO;
-import com.gutongxue.wxapp.domain.ImageVO;
-import com.gutongxue.wxapp.domain.JokeDO;
-import com.gutongxue.wxapp.domain.Result;
+import com.gutongxue.wxapp.domain.*;
 import com.gutongxue.wxapp.service.ImageService;
 import com.gutongxue.wxapp.util.GRQUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +28,15 @@ public class ImageController {
         try {
             int page= GRQUtil.getRequestInteger(request,"page",1);
             int size=GRQUtil.getRequestInteger(request,"size",5);
-            List<ImageVO> list=imageService.listImage(page,size);
+            int status=GRQUtil.getRequestInteger(request,"status",1);
+            String openid=request.getParameter("openid");
+            QueryParam queryParam =new QueryParam();
+            queryParam.setPage(page);
+            queryParam.setSize(size);
+            queryParam.setStatus(status);
+            queryParam.setOpenid(openid);
+
+            List<ImageVO> list=imageService.listImage(queryParam);
             int count=imageService.countImage();
 
             JSONObject resultJO=new JSONObject();
@@ -61,7 +66,7 @@ public class ImageController {
             imageDO.setUrl(url);
             imageDO.setDescription(description);
             imageDO.setSource(0);
-            imageDO.setStatus(0);
+            imageDO.setStatus(1);
 
             imageService.insertImage(imageDO);
 

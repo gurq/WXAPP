@@ -1,6 +1,7 @@
 package com.gutongxue.wxapp.dao;
 
 import com.gutongxue.wxapp.domain.JokeDO;
+import com.gutongxue.wxapp.domain.QueryParam;
 import com.gutongxue.wxapp.domain.VideoDO;
 import com.gutongxue.wxapp.domain.VideoVO;
 import org.apache.ibatis.annotations.*;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Mapper
 public interface VideoMapper {
-    @Insert("insert into `gtx_base_video` (`openid`,`gmt_create`,`gmt_modified`,`video_url`,`video_cover`,`video_description`,`video_source`,`video_status`)\n" +
+    @Insert("insert into `gtx_base_video` (`user_openid`,`gmt_create`,`gmt_modified`,`video_url`,`video_cover`,`video_description`,`video_source`,`video_status`)\n" +
             " values(#{video.openid},#{video.createTime},#{video.modifiedTime},#{video.url},#{video.cover},#{video.description},#{video.source},#{video.status})")
     void insertVideo(@Param("video")VideoDO videoDO);
 
@@ -24,9 +25,12 @@ public interface VideoMapper {
             @Result(property = "status" , column = "video_status"),
             @Result(property = "user" , column = "user_openid" , one = @One(select = "com.gutongxue.wxapp.dao.UserMapper.getUser"))
     })
-    @Select("select * from gtx_base_video where video_status = 1 order by gmt_modified desc")
-    List<VideoVO> listVideo();
+    @SelectProvider(type = VideoProvider.class , method = "queryByParam")
+    List<VideoVO> listVideo(@Param("param")QueryParam queryParam);
 
     @Select("select count(*) from gtx_base_video where video_status = 1")
     int countVideo();
+
+    @Select("select count(*) from gtx_base_video where video_description = #{0}")
+    int countVideoByDescription(String description);
 }

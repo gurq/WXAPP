@@ -1,14 +1,10 @@
 package com.gutongxue.wxapp.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.gutongxue.wxapp.domain.JokeDO;
-import com.gutongxue.wxapp.domain.JokeVO;
-import com.gutongxue.wxapp.domain.Result;
+import com.gutongxue.wxapp.domain.*;
 import com.gutongxue.wxapp.service.JokeService;
 import com.gutongxue.wxapp.util.GRQUtil;
-import org.apache.ibatis.annotations.Insert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +25,15 @@ public class JokeController {
         try {
             int page= GRQUtil.getRequestInteger(request,"page",1);
             int size=GRQUtil.getRequestInteger(request,"size",5);
-            List<JokeVO> list=jokeService.listJoke(page,size);
+            int status=GRQUtil.getRequestInteger(request,"status",1);
+            String openid=request.getParameter("openid");
+            QueryParam queryParam =new QueryParam();
+            queryParam.setPage(page);
+            queryParam.setSize(size);
+            queryParam.setStatus(status);
+            queryParam.setOpenid(openid);
+
+            List<JokeVO> list=jokeService.listJoke(queryParam);
             int count=jokeService.countJoke();
 
             JSONObject resultJO=new JSONObject();
@@ -57,7 +61,7 @@ public class JokeController {
             jokeDO.setModifiedTime(now);
             jokeDO.setContent(content);
             jokeDO.setSource(0);
-            jokeDO.setStatus(0);
+            jokeDO.setStatus(1);
 
             jokeService.insertJoke(jokeDO);
 
