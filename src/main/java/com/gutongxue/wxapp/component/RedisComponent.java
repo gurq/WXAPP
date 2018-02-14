@@ -28,7 +28,6 @@ public class RedisComponent {
     VideoService videoService;
 
     public void initRedis(){
-        System.out.println("正在初始化Redis里的缓存");
         QueryParam queryParam=new QueryParam();
         queryParam.setStatus(1);
         queryParam.setSize(3);
