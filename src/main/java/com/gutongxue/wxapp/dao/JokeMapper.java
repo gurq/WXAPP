@@ -30,6 +30,7 @@ public interface JokeMapper {
 
     @Insert("insert into `gtx_base_joke` (`user_openid`,`gmt_create`,`gmt_modified`,`joke_content`,`joke_source`,`joke_status`)\n" +
             " values(#{joke.openid},#{joke.createTime},#{joke.modifiedTime},#{joke.content},#{joke.source},#{joke.status})")
+    @Options(useGeneratedKeys = true,keyProperty = "joke.id")
     void insertJoke(@Param("joke") JokeDO jokeDO);
 
     @Delete("delete from gtx_base_joke where id = #{0}")

@@ -16,6 +16,7 @@ public interface ImageMapper {
 
     @Insert("insert into `gtx_base_image` (`user_openid`,`gmt_create`,`gmt_modified`,`image_url`,`image_description`,`image_source`,`image_status`)\n" +
             " values(#{image.openid},#{image.createTime},#{image.modifiedTime},#{image.url},#{image.description},#{image.source},#{image.status})")
+    @Options(useGeneratedKeys = true,keyProperty = "image.id")
     void insertImage(@Param("image")ImageDO imageDO);
 
     @Delete("delete from gtx_base_image where id = #{0}")

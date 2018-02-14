@@ -12,6 +12,7 @@ import java.util.List;
 public interface VideoMapper {
     @Insert("insert into `gtx_base_video` (`user_openid`,`gmt_create`,`gmt_modified`,`video_url`,`video_cover`,`video_description`,`video_source`,`video_status`)\n" +
             " values(#{video.openid},#{video.createTime},#{video.modifiedTime},#{video.url},#{video.cover},#{video.description},#{video.source},#{video.status})")
+    @Options(useGeneratedKeys = true,keyProperty = "video.id")
     void insertVideo(@Param("video")VideoDO videoDO);
 
     @Results({

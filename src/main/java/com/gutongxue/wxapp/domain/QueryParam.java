@@ -9,6 +9,16 @@ public class QueryParam {
     private Integer page;
     private Integer size;
 
+    @Override
+    public String toString() {
+        return "QueryParam{" +
+                "status=" + status +
+                ", openid='" + openid + '\'' +
+                ", page=" + page +
+                ", size=" + size +
+                '}';
+    }
+
     public Integer getStatus() {
         return status;
     }

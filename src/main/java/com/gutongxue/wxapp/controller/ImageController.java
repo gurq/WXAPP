@@ -1,10 +1,12 @@
 package com.gutongxue.wxapp.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.gutongxue.wxapp.component.TaskComponent;
 import com.gutongxue.wxapp.domain.*;
 import com.gutongxue.wxapp.service.ImageService;
 import com.gutongxue.wxapp.util.GRQUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,13 +23,18 @@ import java.util.List;
 public class ImageController {
     @Autowired
     ImageService imageService;
+    @Autowired
+    RedisTemplate redisTemplate;
+    @Autowired
+    TaskComponent taskComponent;
 
     @RequestMapping(value = "/image/list",method = RequestMethod.GET)
     public Result getImageList(HttpServletRequest request){
         Result result=new Result();
         try {
             int page= GRQUtil.getRequestInteger(request,"page",1);
-            int size=GRQUtil.getRequestInteger(request,"size",5);
+//            int size=GRQUtil.getRequestInteger(request,"size",5);
+            int size=3;
             int status=GRQUtil.getRequestInteger(request,"status",1);
             String openid=request.getParameter("openid");
             QueryParam queryParam =new QueryParam();
@@ -36,12 +43,19 @@ public class ImageController {
             queryParam.setStatus(status);
             queryParam.setOpenid(openid);
 
-            List<ImageVO> list=imageService.listImage(queryParam);
-            int count=imageService.countImage();
+            String redisKey="imageList"+queryParam.toString();
+            List<ImageVO> list;
+            if (redisTemplate.opsForValue().get(redisKey)==null){
+                list=imageService.listImage(queryParam);
+                redisTemplate.opsForValue().set(redisKey,list);
+            }else {
+                list= (List<ImageVO>) redisTemplate.opsForValue().get(redisKey);
+            }
+//            int count=imageService.countImage();
 
             JSONObject resultJO=new JSONObject();
             resultJO.put("list",list);
-            resultJO.put("count",count);
+//            resultJO.put("count",count);
             result.setData(resultJO);
         }catch (Exception e){
             result.setMessage(e.getMessage());
@@ -69,6 +83,7 @@ public class ImageController {
             imageDO.setStatus(1);
 
             imageService.insertImage(imageDO);
+            taskComponent.resetRedis();
 
             result.setData(imageDO);
 
@@ -85,6 +100,7 @@ public class ImageController {
         try {
             int id = Integer.valueOf(request.getParameter("id"));
             imageService.deleteImage(id);
+            redisTemplate.opsForValue();
         }catch (Exception e){
             result.setMessage(e.getMessage());
             result.setStatus(false);
@@ -101,6 +117,7 @@ public class ImageController {
             String now= LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
             imageService.updateImageStatus(id,status,now);
+            redisTemplate.opsForValue();
         }catch (Exception e){
             result.setMessage(e.getMessage());
             result.setStatus(false);

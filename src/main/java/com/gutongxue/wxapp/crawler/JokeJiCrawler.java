@@ -32,7 +32,7 @@ public class JokeJiCrawler {
         String yesterdayYearMonth = LocalDate.now().minusDays(1).format(DateTimeFormatter.ofPattern("yyyy_M"));
         String jokeListUrl = "http://www.jokeji.cn/DateUpdate_" + yesterdayYearMonth + ".htm";
         String jokeListUrlHtml = HtmlUtil.sendGetGzip(jokeListUrl, "gbk");
-        if (GRQUtil.checkNull(jokeListUrl)) {
+        if (GRQUtil.checkNull(jokeListUrlHtml)) {
             return 0;
         }
         Document jokeListDoc = Jsoup.parse(jokeListUrlHtml);
