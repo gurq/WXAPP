@@ -26,6 +26,8 @@ public class ScheduleComponent {
     MaHuaCrawler maHuaCrawler;
     @Autowired
     NeiHanDuanZiCrawler neiHanDuanZiCrawler;
+    @Autowired
+    RedisComponent redisComponent;
 
 //        @Scheduled(cron="0/5 * * * * ?")
     @Scheduled(cron="0 15 0 * * ?")
@@ -68,5 +70,7 @@ public class ScheduleComponent {
             }catch (Exception e){
                 e.printStackTrace();
             }
+            redisComponent.clearRedis();
+            redisComponent.initRedis();
     }
 }

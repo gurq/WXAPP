@@ -38,8 +38,8 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public int countVideo() {
-        return videoMapper.countVideo();
+    public int countVideo(QueryParam queryParam) {
+        return videoMapper.countVideo(queryParam);
     }
 
     @Override

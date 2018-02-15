@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <title>谷同学--每日更新笑话、囧图、视频</title>
+    <link rel="shortcut icon" href="/image/logo.ico"/>
+    <link href="/css/list_css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="content">
+    <tr th:each="item : ${list}">
+        <div class="list-item">
+            <div class="item-head">
+                <div class='item-head-left'>
+                    <img class='avatar' th:src="${item.user.avatar}" />
+                </div>
+                <div class='item-head-right'>
+                    <div><p th:text="${item.user.nickname}">用户昵称</p></div>
+                    <div><p th:text="${item.modifiedTime}">发布时间</p></div>
+                </div>
+            </div>
+            <div class='content'>
+                <div class='description'>
+                    <p th:text="${item.description}">图片描述</p>
+                </div>
+                <div class='videoView'>
+                    <video class='video' width="100%"  th:poster="${item.cover}" controls="true"
+                           webkit-playsinline="true" playsinline="true" x-webkit-airplay="allow" x5-video-player-type="h5" style="object-fit:fill">
+                        <source th:src="${item.url}" th:type="@{video/mp4}" />
+                    </video>
+                </div>
+            </div>
+        </div>
+    </tr>
+</div>
+<div class="page" style="bottom:40px;left:0px;width:100%;z-index:10000;">
+    <ul>
+        <div th:if="${lastPage != -1}">
+            <a th:href="@{/v(page=${lastPage})}"><li>上一页</li></a>
+        </div>
+        <div th:unless="${lastPage != -1}">
+            <p><li>这是首页</li></p>
+        </div>
+
+        <div th:if="${nextPage != -1}">
+            <a th:href="@{/v(page=${nextPage})}"><li>下一页</li></a>
+        </div>
+        <div th:unless="${nextPage != -1}">
+            <p><li>这是尾页</li></p>
+        </div>
+
+    </ul>
+</div>
+<div class="menu" style="position: fixed;bottom:0px;left:0px;width:100%;z-index:10000;">
+    <ul>
+        <li>
+            <a href="/j"><img src="/image/joke_uncheck_small.png" height="40px"/></a>
+        </li>
+        <li>
+            <a href="/i"><img src="/image/image_uncheck_small.png" height="40px"/></a>
+        </li>
+        <li>
+            <a href="/v"><img src="/image/video_checked_small.png" height="40px"/></a>
+        </li>
+        <div class="clear"></div>
+    </ul>
+</div>
+</body>
+</html>

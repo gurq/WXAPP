@@ -33,8 +33,8 @@ public class JokeServiceImpl implements JokeService {
     }
 
     @Override
-    public int countJoke() {
-        return jokeMapper.countJoke();
+    public int countJoke(QueryParam queryParam) {
+        return jokeMapper.countJoke(queryParam);
     }
 
     @Override

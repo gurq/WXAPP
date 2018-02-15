@@ -29,8 +29,8 @@ public interface VideoMapper {
     @SelectProvider(type = VideoProvider.class , method = "queryByParam")
     List<VideoVO> listVideo(@Param("param")QueryParam queryParam);
 
-    @Select("select count(*) from gtx_base_video where video_status = 1")
-    int countVideo();
+    @SelectProvider(type = VideoProvider.class , method = "queryCountByParam")
+    int countVideo(@Param("param")QueryParam queryParam);
 
     @Select("select count(*) from gtx_base_video where video_description = #{0}")
     int countVideoByDescription(String description);

@@ -21,4 +21,13 @@ public class ImageProvider {
         sql.ORDER_BY("gmt_modified desc");
         return sql.toString();
     }
+
+    public String queryCountByParam(Map<String, Object> para){
+        QueryParam queryParam = (QueryParam) para.get("param");
+        SQL sql=new SQL().SELECT("count(*)").FROM(TABLE).WHERE("image_status = "+ queryParam.getStatus());
+        if (!GRQUtil.checkNull(queryParam.getOpenid())){
+            sql.WHERE("user_openid = #{param.openid}");
+        }
+        return sql.toString();
+    }
 }

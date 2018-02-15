@@ -12,5 +12,5 @@ public interface ImageService {
     void deleteImage(int id);
     void updateImageStatus(int id,int status,String now);
     List<ImageVO> listImage(QueryParam queryParam);
-    int countImage();
+    int countImage(QueryParam queryParam);
 }

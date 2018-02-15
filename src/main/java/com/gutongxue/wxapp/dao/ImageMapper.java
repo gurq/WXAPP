@@ -38,7 +38,7 @@ public interface ImageMapper {
     @SelectProvider(type = ImageProvider.class , method = "queryByParam")
     List<ImageVO> listImage(@Param("param")QueryParam queryParam);
 
-    @Select("select count(*) from gtx_base_image where image_status = 1 ")
-    int countImage();
+    @SelectProvider(type = ImageProvider.class , method = "queryCountByParam")
+    int countImage(@Param("param")QueryParam queryParam);
 
 }

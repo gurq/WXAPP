@@ -22,8 +22,8 @@ public interface JokeMapper {
     })
     List<JokeVO> listJoke(@Param("param")QueryParam queryParam);
 
-    @Select("select count(*) from gtx_base_joke where joke_status = 1")
-    int countJoke();
+    @SelectProvider(type = JokeProvider.class , method = "queryCountByParam")
+    int countJoke(@Param("param")QueryParam queryParam);
 
     @Select("select count(*) from gtx_base_joke where joke_content = #{0}")
     int countJokeByDescription(String content);

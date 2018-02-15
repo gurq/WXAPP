@@ -122,9 +122,4 @@ public class JokeController {
         return result;
     }
 
-    @RequestMapping("/")
-    public String index(){
-        return "启动成功";
-    }
-
 }

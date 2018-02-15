@@ -52,7 +52,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public int countImage() {
-        return imageMapper.countImage();
+    public int countImage(QueryParam queryParam) {
+        return imageMapper.countImage(queryParam);
     }
 }

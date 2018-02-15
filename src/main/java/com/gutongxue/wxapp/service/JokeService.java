@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface JokeService {
     List<JokeVO> listJoke(QueryParam queryParam);
-    int countJoke();
+    int countJoke(QueryParam queryParam);
     int countJokeByContent(String content);
     void insertJoke(JokeDO jokeDO);
     void deleteJoke(int id);
