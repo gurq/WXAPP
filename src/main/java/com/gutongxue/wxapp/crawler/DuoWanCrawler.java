@@ -112,6 +112,7 @@ public class DuoWanCrawler {
         }catch (Exception e){
             e.printStackTrace();
         }
+        count-=imageService.deleteRepeatImage();
         return count;
     }
 

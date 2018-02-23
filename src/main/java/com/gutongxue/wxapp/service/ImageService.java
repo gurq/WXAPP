@@ -10,6 +10,7 @@ public interface ImageService {
     int countImageByDescription(String description);
     void insertImage(ImageDO imageDO);
     void deleteImage(int id);
+    int deleteRepeatImage();
     void updateImageStatus(int id,int status,String now);
     List<ImageVO> listImage(QueryParam queryParam);
     int countImage(QueryParam queryParam);

@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface VideoService {
     void insertVideo(VideoDO videoDO);
+    int deleteRepeatVideo();
     List<VideoVO> listVideo(QueryParam queryParam);
     int countVideo(QueryParam queryParam);
     int countVideoByDescription(String description);

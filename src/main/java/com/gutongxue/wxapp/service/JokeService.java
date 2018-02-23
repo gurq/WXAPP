@@ -13,5 +13,6 @@ public interface JokeService {
     int countJokeByContent(String content);
     void insertJoke(JokeDO jokeDO);
     void deleteJoke(int id);
+    int deleteRepeatJoke();
     void updateJokeStatus(int id,int status,String now);
 }

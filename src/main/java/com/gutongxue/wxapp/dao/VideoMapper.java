@@ -15,6 +15,9 @@ public interface VideoMapper {
     @Options(useGeneratedKeys = true,keyProperty = "video.id")
     void insertVideo(@Param("video")VideoDO videoDO);
 
+    @Delete("DELETE FROM `gtx_base_video`   WHERE id NOT IN ( SELECT id FROM ( SELECT min(b.id) AS id FROM `gtx_base_video`  b GROUP BY b.`video_url`    ) b )")
+    int deleteRepeatVideo();
+
     @Results({
             @Result(property = "id" , column = "id"),
             @Result(property = "createTime" , column = "gmt_create"),

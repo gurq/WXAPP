@@ -22,6 +22,9 @@ public interface ImageMapper {
     @Delete("delete from gtx_base_image where id = #{0}")
     void deleteImage(int id);
 
+    @Delete("DELETE FROM `gtx_base_image`   WHERE id NOT IN ( SELECT id FROM ( SELECT min(b.id) AS id FROM `gtx_base_image`   b GROUP BY b.`image_url`   ) b )")
+    int deleteRepeatImage();
+
     @Update("update gtx_base_image set image_status = #{1} , gmt_modified = #{2} where id = #{0}")
     void updateImageStatus(int id,int status,String now);
 

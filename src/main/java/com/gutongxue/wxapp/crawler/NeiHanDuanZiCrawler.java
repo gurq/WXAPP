@@ -80,6 +80,7 @@ public class NeiHanDuanZiCrawler {
             }
             page++;
         }
+        count-=videoService.deleteRepeatVideo();
         return count;
     }
 }

@@ -36,6 +36,11 @@ public interface JokeMapper {
     @Delete("delete from gtx_base_joke where id = #{0}")
     void deleteJoke(int id);
 
+    @Delete("DELETE FROM `gtx_base_joke`  WHERE id NOT IN ( SELECT id FROM ( SELECT min(b.id) AS id FROM `gtx_base_joke`  b GROUP BY b.`joke_content`  ) b )")
+    int deleteRepeatJoke();
+
     @Update("update gtx_base_joke set joke_status = #{1} , gmt_modified = #{2} where id = #{0}")
     void updateJokeStatus(int id,int status,String now);
+
+
 }

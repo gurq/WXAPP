@@ -33,6 +33,11 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    public int deleteRepeatImage() {
+        return imageMapper.deleteRepeatImage();
+    }
+
+    @Override
     public void updateImageStatus(int id, int status, String now) {
         imageMapper.updateImageStatus(id,status,now);
     }

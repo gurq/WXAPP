@@ -95,6 +95,8 @@ public class MaHuaCrawler {
         }catch (Exception e){
             e.printStackTrace();
         }
+        count-=jokeService.deleteRepeatJoke();
+        count-=imageService.deleteRepeatImage();
         return count;
     }
 }

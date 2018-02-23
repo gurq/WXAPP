@@ -53,6 +53,11 @@ public class JokeServiceImpl implements JokeService {
     }
 
     @Override
+    public int deleteRepeatJoke() {
+        return jokeMapper.deleteRepeatJoke();
+    }
+
+    @Override
     public void updateJokeStatus(int id, int status, String now) {
         jokeMapper.updateJokeStatus(id,status,now);
     }

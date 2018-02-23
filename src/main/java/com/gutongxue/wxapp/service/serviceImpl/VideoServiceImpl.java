@@ -24,6 +24,11 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
+    public int deleteRepeatVideo() {
+        return videoMapper.deleteRepeatVideo();
+    }
+
+    @Override
     public List<VideoVO> listVideo(QueryParam queryParam) {
         //分页插件: 查询第1页，每页10行
         Page<VideoVO> page = PageHelper.startPage(queryParam.getPage(), queryParam.getSize());

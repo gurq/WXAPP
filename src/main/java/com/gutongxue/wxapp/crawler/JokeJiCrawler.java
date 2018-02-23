@@ -75,6 +75,7 @@ public class JokeJiCrawler {
                 continue;
             }
         }
+        count-=jokeService.deleteRepeatJoke();
         return count;
     }
 
